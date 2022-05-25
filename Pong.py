@@ -53,6 +53,9 @@ ball.color("white")
 ball.penup()
 
 ball.goto(0, 0)
+# d means delta(change), everytime our ball moves it moves by 2px
+ball.dx = 2
+ball.dy = 2
 
 # Functions
 
@@ -97,3 +100,28 @@ wn.onkeypress(paddle_b_down, "Down")
 #main game loop
 while True:
     wn.update()
+
+    # Ball movement
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    # Border checking
+    #if current ycor is greater than 290(since ball is 20x20 and starts at center)
+    if ball.ycor() > 290:
+        #sets it back to 290(the border)
+        ball.sety(290)
+        #since dy is 2 multiplying it by -1 sets it to -2 to reverse movement
+        ball.dy *= -1
+
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    # horizontal border conditions
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+
+    if ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
